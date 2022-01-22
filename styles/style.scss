@@ -1,0 +1,197 @@
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+$delete--color: #dc3545;
+$submit--color: #28a745;
+$border--color: #d1d1d1;
+
+td {
+    padding: 12px 15px;
+    text-transform: capitalize;
+}
+.delete-button {
+    background-color: $delete--color;
+    border: 1px solid $delete--color;
+    font-size: 11px;
+    color: #fff;
+    text-transform: uppercase;
+    &:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+    }
+}
+
+.status-button {
+    background-color: transparent;
+    font-size: 11px;
+    color: #333;
+    border: 1px solid #bbb;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    &:hover {
+        border-color: #888;
+    }
+}
+
+body {
+    font-family: "Raleway";
+    font-weight: 400;
+    font-size: 15px;
+    color: #000;
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    width: 80%;
+    margin: 0 auto;
+    max-width: 960px;
+}
+header {
+    margin-top: 5%;
+}
+.title {
+    font-weight: 200;
+    font-size: 50px;
+    text-align: center;
+    margin: 0 0 20px;
+}
+input[type=submit], button {
+    display: inline-block;
+    height: 38px;
+    padding: 0 30px;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 38px;
+    letter-spacing: 0.6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.form-container {
+    margin-bottom: 25px;
+    form {
+        .form-row {
+            display: flex;
+            margin-bottom: 15px;
+            & > * {
+                margin-left: 3.5%;
+                display: inline-block;
+                box-sizing: border-box;
+            }
+            & > *:first-child {
+                margin-left: 0;
+            }
+            .inf-input {
+                outline-style: none;
+                height: 38px;
+                padding: 6px 10px;
+                width: 100%;
+                border: 1px solid $border--color;
+                border-radius: 4px;      
+            }
+            label {
+                display: block;
+                font-weight: 600;
+            }
+        }
+        .submit-button {
+            color: #fff;
+            background-color: $submit--color;
+            border: 1px solid $submit--color;
+            &:hover {
+                background-color: #218838;
+                border-color: #1e7e34;
+            }
+        }
+    }
+
+}
+
+.table-container {
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        thead { 
+            tr {
+                font-weight: 600;
+                border-bottom: 1px solid $border--color;
+                & > td:first-child {
+                    padding-left: 0;
+                }
+            }
+        }
+        tbody {
+            tr {
+                border-bottom: 1px solid $border--color;
+                & > td:first-child {
+                    padding-left: 0;
+                }
+                td {
+                    padding: 12px 15px;
+                }
+                button {
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+}
+
+// grid
+
+$widthColumns: (
+    1:1,
+    2:2,
+    3:3,
+    4:4,
+    5:5,
+    6:6,
+    7:7,
+    8:8,
+    9:9,
+    10:10,
+    11:11,
+    12:12
+);
+
+@each $number, $value in $widthColumns {
+    .col-#{$number}-in-12 {
+        width: (100% * ($value/12));
+    }
+}
+
+@media (max-width: 550px) {
+    .container {
+        width: 85%;
+        form {
+            .form-row {
+                flex-direction: column;
+                margin-bottom: 0;
+                & > div {
+                    width: 100%;
+                    margin-left: 0;
+                    margin-bottom: 15px
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 550px) {
+    .container {
+        width: 95%;
+        .table-container {
+            #table-body {
+                td {
+                    padding: 12px 3px;
+                }
+            }
+        }
+    }
+}
