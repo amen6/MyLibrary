@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <link href="//fonts.googleapis.com/css?family=Raleway:200,300,400,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="normalize.css">
+
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="title">
+                My Library
+            </h1>
+        </header>
+        <div class="form-container">
+            <form action id="form">
+                <div class="form-row">
+                    <div class="col-5-in-12">
+                        <label for="book-name">Book Name</label>
+                        <input type="text" id="book-name" class="inf-input" placeholder="Write the book name here...">
+                    </div>
+    
+                    <div class="col-5-in-12">
+                        <label for="author-name">Author Name</label>
+                        <input type="text" id="author-name" class="inf-input" placeholder="Write the Author name here...">
+                    </div>
+                    
+                    <div class="col-2-in-12">
+                        <label for="status">Status</label>
+                        <select name="status" id="status" class="inf-input">
+                            <option value="read">Read</option>
+                            <option value="not read">Not read</option>
+                        </select>
+                    </div>
+                </div>
+                <input type="submit" class="submit-button" value="SUBMIT">
+            </form>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <td>Book</td>
+                        <td>Author</td>
+                        <td>Status</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+</html>
