@@ -3,23 +3,22 @@ let library = [];
 const book = document.querySelector("#book-name");
 const author = document.querySelector("#author-name");
 const status = document.querySelector("#status");
-const table = document.querySelector("#table-body");
 const form = document.querySelector("#form");
-let deleteButtons = document.querySelectorAll(".delete-button");
+const table = document.querySelector("#table-body");
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     addBookToLibrary();
     clearForm();
-    showLibrary();
+    showBooks();
 })
 
 class Book {
-    constructor(title, author, status) {
+    constructor (title, author, status) {
         this.title = title;
         this.author = author;
-        this.status = status;
-      }
+        this. status =  status;
+    }
 }
 
 function clearForm() {
@@ -28,35 +27,38 @@ function clearForm() {
 }
 
 function addBookToLibrary() {
-    if (book.value.length === 0 || author.value.length === 0) {
+    if (book.value == "" || author.value == "") {
         alert("Please fill the wanted informations");
         return;
     }
-    if (getBook(book.value)) {
-        alert(`${book.value} already exist in your library`)
-        return;
-    }
-    let newBook = new Book(book.value, author.value, status.value);
+    let newBook = new Book(book.value, author.value, status.value)
     library.push(newBook);
     updateLocalStorage();
     return;
 }
-  
+
+function findBook(title) {
+    return library.find((b)=> b.title.toLowerCase() === title.toLowerCase());
+}
+
 function changeStatus(title) {
-    let targetBook = getBook(title);
-    if (targetBook.status === "read") {
-        targetBook.status = "not read";
-    } else targetBook.status = "read";
+    let targetedBook = findBook(title);
+    if (targetedBook.status === "read") {
+        targetedBook.status = "not read"
+    } else {
+        targetedBook.status = "read"
+    }
     updateLocalStorage();
-    showLibrary();
+    showBooks();
 }
 
 function deleteBook(title) {
-    library = library.filter((book) => book.title.toLowerCase() != title.toLowerCase())
-}
-
-function getBook(title) {
-    return library.find((book) => book.title.toLowerCase() === title.toLowerCase())
+    let targetedBook = findBook(title);
+    if(confirm(`Are you sure you want to delete '${targetedBook.title}'`)) {
+        library = library.filter((b)=> b.title.toLowerCase() != targetedBook.title.toLowerCase() )
+    }
+    updateLocalStorage();
+    showBooks();
 }
 
 function updateLocalStorage() {
@@ -64,38 +66,26 @@ function updateLocalStorage() {
 }
 
 function checkLocalStorage() {
-    if(localStorage.getItem("library")) {
+    if (localStorage.getItem("library")) {
         library = JSON.parse(localStorage.getItem("library"))
     } else {
-        library = []
+        library = [];
     }
 }
 
-function showLibrary() {
+function showBooks() {
     checkLocalStorage();
     table.innerHTML = "";
-    library.forEach((book) => {
-        let htmlItem = `
+    library.forEach((b) => {
+        let addedHtml = `
         <tr>
-            <td>${book.title}</td>
-            <td>${book.author}</td>
-            <td><button class="status-button" data-name="${book.title}" onclick="changeStatus('${book.title}')">${book.status}</button></td>
-            <td><button class="delete-button" data-name="${book.title}">DELETE</button></td>
-        </tr>
-        `;
-    table.insertAdjacentHTML("afterbegin", htmlItem)
+            <td>${b.title}</td>
+            <td>${b.author}</td>
+            <td><button class="status-button" data-name="${b.title}" onclick="changeStatus('${b.title}')">${b.status}</button></td>
+            <td><button class="delete-button" data-name="${b.title}" onclick="deleteBook('${b.title}')">DELETE</button></td>
+        </tr>`;
+        table.insertAdjacentHTML("afterbegin", addedHtml);
     })
-    deleteButtons = document.querySelectorAll(".delete-button");
-    deleteButtons.forEach(element => {
-        element.addEventListener("click", e => {
-            if(confirm(`Are you sure you want to delete '${e.target.getAttribute('data-name')}'`)) {
-                deleteBook(e.target.getAttribute('data-name'))
-            }
-            updateLocalStorage();
-            showLibrary();
-        })
-    });
-    return;
 }
 
-showLibrary();
+showBooks();
